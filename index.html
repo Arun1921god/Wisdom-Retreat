@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaking the Silence: Nora and Kambili</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset & Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            scroll-behavior: smooth; /* Smooth scrolling for internal links */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px; /* Limit content width for readability */
+            margin: 0 auto; /* Center the container */
+            padding: 0 15px; /* Add some horizontal padding */
+        }
+
+        /* Header Styling */
+        .site-header {
+            background-color: #4a4a6a; /* Dark purple/blue */
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 1000; /* Ensure header is above other content */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .site-header h1 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .site-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        /* Navigation Styling */
+        .site-nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex; /* Arrange links horizontally */
+            justify-content: center; /* Center links */
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        }
+
+        .site-nav ul li {
+            margin: 0 15px; /* Space between links */
+        }
+
+        .site-nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out; /* Smooth transition */
+            padding-bottom: 5px; /* Space for border */
+            border-bottom: 2px solid transparent; /* Transparent border by default */
+        }
+
+        .site-nav ul li a:hover,
+        .site-nav ul li a:focus {
+            color: #a0c4ff; /* Lighter color on hover */
+            border-bottom-color: #a0c4ff; /* Highlight border on hover */
+        }
+
+        /* Team Credits Section Styling */
+        .team-credits {
+            background-color: #eef; /* Light blue background */
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .team-credits h2 {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            color: #4a4a6a;
+            margin-bottom: 25px;
+        }
+
+        .name-boxes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow names to wrap */
+            gap: 15px; /* Space between boxes */
+            margin-bottom: 25px;
+        }
+
+        .name-box {
+            display: inline-block; /* Make it a block but allow side-by-side */
+            background-color: #a0c4ff; /* Accent color */
+            color: #333;
+            padding: 10px 15px;
+            border: 1px solid #89b4f0; /* Slightly darker border */
+            border-radius: 5px;
+            cursor: pointer; /* Indicate it's clickable */
+            font-weight: bold;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            user-select: none; /* Prevent text selection on click */
+        }
+
+        .name-box:hover {
+            background-color: #b8d8ff; /* Lighter on hover */
+            transform: translateY(-2px); /* Slight lift */
+        }
+
+         .name-box:active {
+            transform: translateY(0); /* Press down effect */
+         }
+
+        #contribution-text {
+            min-height: 60px; /* Reserve space */
+            border: 1px solid #ccc;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            text-align: left;
+            font-style: italic;
+            color: #555;
+            margin-top: 20px;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0; /* Initially hidden */
+            height: 0; /* Initially collapsed */
+            overflow: hidden; /* Hide overflow when collapsed */
+            display: none; /* Hidden by default, JS will change to block */
+        }
+
+        #contribution-text.visible {
+             opacity: 1; /* Show when visible */
+             height: auto; /* Allow height to adjust */
+             display: block; /* Show as block */
+        }
+
+
+        /* Hero Section Styling */
+        .hero-section {
+            background: url('placeholder-hero-image.jpg') no-repeat center center/cover; /* Replace with a relevant image */
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px; /* Adjust padding for height */
+            position: relative; /* Needed for pseudo-element overlay */
+        }
+
+        /* Overlay for better text readability on hero image */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5); /* Dark overlay */
+        }
+
+        .hero-content {
+            position: relative; /* Bring content above overlay */
+            z-index: 1;
+        }
+
+        .hero-section h2 {
+            font-family: 'Lora', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Text shadow for readability */
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .btn-learn-more {
+            display: inline-block;
+            background-color: #a0c4ff; /* Light blue accent */
+            color: #333;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .btn-learn-more:hover {
+            background-color: #b8d8ff; /* Lighter on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* General Section Styling */
+        .section {
+            padding: 60px 0; /* Top and bottom padding */
+            background-color: #fff; /* Default background for sections */
+            margin-bottom: 20px; /* Space between sections */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        .section:nth-child(odd) {
+            background-color: #f9f9f9; /* Alternate background color */
+        }
+
+        .section h2 {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            color: #4a4a6a; /* Dark color for headings */
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Introduction Section Grid */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 30px; /* Space between grid items */
+            margin-top: 30px;
+        }
+
+        .intro-point {
+            background-color: #e9e9f4; /* Light background */
+            padding: 20px;
+            border-left: 4px solid #a0c4ff; /* Accent border */
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+         .intro-point:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+         }
+
+
+        .intro-point h3 {
+            font-size: 1.4rem;
+            color: #4a4a6a;
+            margin-bottom: 10px;
+        }
+
+        /* Character Section Styling */
+        .character-section .container {
+             display: flex; /* Use flexbox for text and image layout */
+             flex-wrap: wrap; /* Allow wrapping on small screens */
+             align-items: center; /* Vertically align items */
+             gap: 40px; /* Space between text and image */
+        }
+
+        .character-section .character-text {
+            flex: 2; /* Text takes more space */
+            min-width: 300px; /* Minimum width before wrapping */
+        }
+
+         .character-section .character-image {
+            flex: 1; /* Image takes less space */
+            min-width: 250px; /* Minimum width before wrapping */
+            text-align: center; /* Center image if it's smaller */
+         }
+
+         /* Figure and Figcaption Styling for Images with Captions */
+         .character-image figure {
+             margin: 0; /* Override default figure margin */
+             padding: 0;
+             display: inline-block; /* Allows containing float/flex item */
+             max-width: 100%; /* Ensure figure doesn't overflow */
+         }
+
+         .character-image figure img {
+            max-width: 100%; /* Ensure image fits within figure */
+            height: auto;
+            border-radius: 10px; /* Keep rounded corners */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Keep shadow */
+         }
+
+         .character-image figcaption {
+            text-align: center;
+            font-size: 0.9em; /* Smaller text for caption */
+            color: #666;
+            margin-top: 8px; /* Space above caption */
+            font-style: normal; /* Ensure caption isn't italic if outside blockquote */
+            padding: 0 5px; /* Add slight padding */
+         }
+
+
+         /* Styling for the reversed layout (Kambili section) */
+         .character-section.kambili .container {
+             flex-direction: row-reverse; /* Reverse order of items */
+         }
+
+
+        .character-section h3 {
+            font-size: 1.5rem;
+            color: #5a5a7a; /* Slightly lighter color for subheadings */
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .character-section blockquote {
+            font-style: italic;
+            margin: 20px 0;
+            padding: 15px 20px;
+            border-left: 4px solid #a0c4ff; /* Accent border for quotes */
+            background-color: #eef; /* Light background for quotes */
+            color: #555;
+            border-radius: 0 5px 5px 0;
+        }
+
+         .character-section blockquote p {
+             margin-bottom: 5px; /* Space between quote text and source */
+         }
+
+         .character-section blockquote .source {
+             font-size: 0.9em;
+             text-align: right;
+             display: block; /* Ensure source is on its own line */
+             color: #777;
+         }
+
+
+        /* Shared Journey Section */
+        .shared-journey .quote-block {
+            background-color: #f0f0f5; /* Light background */
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            max-width: 700px;
+            border: 1px dashed #ccc; /* Dashed border */
+        }
+        .shared-journey .quote-block .quote {
+            font-family: 'Lora', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4a4a6a;
+        }
+         .shared-journey .quote-block .source {
+            font-size: 0.9rem;
+            text-align: right;
+            display: block;
+            color: #666;
+         }
+
+
+        /* Awakening & Freedom Section Grid */
+         .awakening-freedom .freedom-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+         }
+
+         .awakening-freedom .freedom-point {
+            background-color: #e0f7fa; /* Another light background color */
+            padding: 25px;
+            border-radius: 8px;
+            border-top: 4px solid #00bcd4; /* Cyan accent */
+            text-align: center;
+             transition: box-shadow 0.3s ease-in-out;
+         }
+
+         .awakening-freedom .freedom-point:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+         }
+
+
+         .awakening-freedom .freedom-point h3 {
+             font-size: 1.4rem;
+             color: #00838f; /* Darker cyan */
+             margin-bottom: 15px;
+             border-bottom: none; /* Remove border from h3 in this section */
+             padding-bottom: 0;
+             text-align: center;
+         }
+
+         .awakening-freedom blockquote {
+             font-style: normal; /* Not italic */
+             font-weight: bold;
+             text-align: center;
+             margin: 40px auto 20px;
+             max-width: 600px;
+             font-size: 1.5rem;
+             color: #4a4a6a;
+             border-left: none;
+             background: none;
+             padding: 0;
+             border-radius: 0;
+         }
+
+
+        /* Legacy Section */
+        .legacy {
+            background-color: #eef; /* Lightest blue background */
+        }
+         .legacy .closing-thought {
+             font-style: italic;
+             text-align: center;
+             margin-top: 30px;
+             font-size: 1.1rem;
+             color: #5a5a7a;
+         }
+
+         /* IB Paper 2 Section Styling */
+         .ib-paper2-section {
+            padding: 60px 0;
+            background-color: #fdfdff; /* Very light background */
+             border-top: 1px solid #ddd;
+         }
+
+         .ib-paper2-section h2 {
+             font-family: 'Lora', serif;
+             font-size: 2rem;
+             color: #4a4a6a;
+             text-align: center;
+             margin-bottom: 40px;
+         }
+
+         .ib-paper2-section .sample-essay {
+             background-color: #fff;
+             padding: 30px;
+             margin-bottom: 40px;
+             border-radius: 8px;
+             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+             border-left: 5px solid #a0c4ff; /* Accent border */
+         }
+
+         .ib-paper2-section .sample-essay h3 {
+             font-size: 1.6rem;
+             color: #5a5a7a;
+             margin-bottom: 20px;
+             border-bottom: 1px dashed #ccc;
+             padding-bottom: 10px;
+         }
+
+         .ib-paper2-section .sample-essay p {
+             margin-bottom: 15px;
+             text-align: justify; /* Justify text for essay feel */
+         }
+
+         .ib-paper2-section .sample-essay p:last-child {
+             margin-bottom: 0;
+         }
+
+
+        /* Footer Styling */
+        .site-footer {
+            background-color: #333; /* Dark footer */
+            color: #bbb; /* Light grey text */
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+
+        .site-footer p {
+            margin-bottom: 10px;
+        }
+
+        .site-footer a {
+            color: #a0c4ff;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .site-header h1 {
+                font-size: 2rem;
+            }
+            .site-header .subtitle {
+                font-size: 1rem;
+            }
+            .site-nav ul li {
+                margin: 5px 10px;
+            }
+            .hero-section {
+                padding: 80px 20px;
+            }
+            .hero-section h2 {
+                font-size: 2.2rem;
+            }
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            .section {
+                padding: 40px 0;
+            }
+            .section h2 {
+                font-size: 1.7rem;
+            }
+             .character-section .container {
+                 flex-direction: column; /* Stack items vertically on smaller screens */
+             }
+             .character-section.kambili .container {
+                 flex-direction: column; /* Stack items vertically even in reverse layout */
+             }
+
+             .character-section .character-text,
+             .character-section .character-image {
+                 flex: auto; /* Allow items to shrink/grow */
+                 min-width: 0; /* Remove min-width constraint */
+                 width: 100%; /* Take full width */
+             }
+
+             .character-section .character-image img {
+                 max-width: 80%; /* Make images slightly smaller when stacked */
+             }
+
+             .character-section h3 {
+                 font-size: 1.3rem;
+             }
+
+             .awakening-freedom blockquote {
+                 font-size: 1.2rem;
+             }
+
+             .ib-paper2-section h2 {
+                font-size: 1.7rem;
+             }
+             .ib-paper2-section .sample-essay h3 {
+                 font-size: 1.4rem;
+             }
+
+             .team-credits h2 {
+                font-size: 1.5rem;
+             }
+         }
+
+         @media (max-width: 480px) {
+             .site-nav ul li {
+                 margin: 5px;
+             }
+             .hero-section h2 {
+                 font-size: 1.8rem;
+             }
+             .section h2 {
+                 font-size: 1.5rem;
+             }
+             .intro-point h3 {
+                 font-size: 1.2rem;
+             }
+              .shared-journey .quote-block .quote {
+                font-size: 1.1rem;
+             }
+             .awakening-freedom blockquote {
+                 font-size: 1rem;
+             }
+              .ib-paper2-section h2 {
+                font-size: 1.5rem;
+             }
+             .ib-paper2-section .sample-essay h3 {
+                 font-size: 1.2rem;
+             }
+             .name-box {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+             }
+             .name-boxes {
+                gap: 10px;
+             }
+         }
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Breaking the Silence</h1>
+            <p class="subtitle">A Dialogue of Voices Unbound</p>
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#nora">Nora's Story</a></li>
+                    <li><a href="#kambili">Kambili's Story</a></li>
+                    <li><a href="#shared-journey">Shared Path</a></li>
+                    <li><a href="#freedom">Awakening & Freedom</a></li>
+                    <li><a href="#legacy">Legacy</a></li>
+                     <li><a href="#ib-paper2">IB Paper 2</a></li>
+                     <li><a href="#team-credits">Contributors</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="team-credits" class="team-credits">
+        <div class="container">
+            <h2>Project Contributors: English Analysis Focus</h2>
+            <div class="name-boxes">
+                <span class="name-box" data-name="Neil">Neil</span>
+                <span class="name-box" data-name="Yuval">Yuval</span>
+                <span class="name-box" data-name="Veer">Veer</span>
+                <span class="name-box" data-name="Rithwik">Rithwik</span>
+                <span class="name-box" data-name="Bhavika">Bhavika</span>
+                <span class="name-box" data-name="Karina">Karina</span>
+                <span class="name-box" data-name="Shreeyansh">Shreeyansh</span>
+                <span class="name-box" data-name="Yashab">Yashab</span>
+                <span class="name-box" data-name="Rutparn">Rutparn</span>
+                <span class="name-box" data-name="Varun">Varun</span>
+                <span class="name-box" data-name="Trisha">Trisha</span>
+                <span class="name-box" data-name="Sharayu">Sharayu</span>
+                 <span class="name-box" data-name="Henil_English">Henil</span> </div>
+            <div id="contribution-text">
+                Click on a name above to see their contribution highlights!
+            </div>
+        </div>
+    </section>
+
+
+    <main>
+
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Two Worlds, One Shared Struggle for Voice</h2>
+                <p>Across continents and centuries, Nora and Kambili faced the crushing weight of expected silence. Their journeys reveal a universal fight for selfhood.</p>
+                <a href="#introduction" class="btn-learn-more">Discover Their Stories</a>
+            </div>
+        </section>
+
+        <section id="introduction" class="section introduction">
+            <div class="container">
+                <h2>The Weight of Expected Silence</h2>
+                <p>Henrik Ibsen's Nora Helmer from <em>A Doll's House</em> and Chimamanda Ngozi Adichie's Kambili Achike from <em>Purple Hibiscus</em> inhabit vastly different worlds. Yet, both were confined by societal and familial expectations that demanded their voices be muted, their selves suppressed. This is an exploration of their parallel paths from stifling obedience to powerful self-discovery.</p>
+                <div class="intro-grid">
+                    <div class="intro-point">
+                        <h3>Different Cages</h3>
+                        <p>Nora in a bourgeois 19th-century European home, treated as a child and possession. Kambili in a wealthy, religiously oppressive Nigerian compound, where fear was a language of love.</p>
+                    </div>
+                    <div class="intro-point">
+                        <h3>Shared Silence</h3>
+                        <p>Both learned early that silence was safer – a means of survival, mistaken for sweetness or obedience. Their inner lives remained hidden, their true voices locked away.</p>
+                    </div>
+                    <div class="intro-point">
+                        <h3>The Invisible Thread</h3>
+                        <p>Despite the differences, they are united by the profound loneliness of not being truly seen, the guilt of wanting more, and the eventual courage to break free.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nora" class="section character-section nora">
+            <div class="container">
+                <div class="character-text">
+                     <h2>Nora's World: The Gilded Cage of the Doll's House</h2>
+                    <h3>Life as a "Little Skylark"</h3>
+                    <p>Nora Helmer's life, as depicted in <em>A Doll's House</em>, was one of performative happiness. Adored by her husband, Torvald, she was his "little skylark," his "little squirrel" – terms of endearment that masked a deeper condescension. Her role was to be pleasing, obedient, and decorative. Her home, while comfortable, was her cage, a place where she enacted the role of the perfect wife and mother, rather than living as a complex individual.</p>
+                    <p>Her voice was not for expressing her own thoughts or desires, but for echoing Torvald's or singing the tunes he preferred. She learned that manipulating others through feigned helplessness or charm was more effective than direct assertion.</p>
+
+                    <h3>The Weight of Secrets and the Forged Signature</h3>
+                    <p>Beneath the cheerful facade, Nora carried a heavy secret: a forged signature on a loan she took years ago to save Torvald's life. This act, born of love and desperation, was a hidden assertion of agency, a departure from her expected role. When this secret threatens to unravel her carefully constructed life, Nora is forced to confront the reality of her marriage and her own identity.</p>
+                    <p>Her husband's reaction reveals the truth of his affection – not for <em>her</em>, but for the <em>idea</em> of her, the compliant doll. This pivotal moment shatters the illusion of her home and forces her to see herself not as a wife or mother first, but as a human being with an urgent need for self-discovery.</p>
+                    <blockquote>
+                        <p>"When people spoke to me, they weren’t really speaking to me. They addressed a version of me—sweet, silent, pleasing."</p>
+                        <span class="source">- Nora (from the script)</span>
+                    </blockquote>
+                </div>
+                <div class="character-image">
+                     <figure>
+                        <img src="placeholder-nora-image.jpg" alt="Image representing Nora leaving her house in A Doll's House">
+                        <figcaption>Nora leaves her doll's house to find independence.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="kambili" class="section character-section kambili">
+            <div class="container">
+                 <div class="character-image">
+                    <figure>
+                        <img src="0_moqXT_dxTO7fmuHs.jpg" alt="Illustration of a person in profile surrounded by purple hibiscus flowers, representing Kambili from Purple Hibiscus">
+                        <figcaption>Aunty Ifeoma's home: Where laughter was loud and voices were free.</figcaption>
+                    </figure>
+                </div>
+                <div class="character-text">
+                    <h2>Kambili's Reality: The Fearful Sanctuary of the Purple Hibiscus Compound</h2>
+                    <h3>Life Under a Pious Tyrant</h3>
+                    <p>Kambili Achike's home in <em>Purple Hibiscus</em> is governed by the strict, often brutal, hand of her father, Papa Eugene. A respected, devout Catholic and wealthy businessman in public, he is a domestic tyrant who controls every aspect of his family's life, from meal times to laughter. Obedience to Papa is paramount, conflated with religious devotion and love. The atmosphere is one of constant tension and fear, where even small transgressions can lead to severe punishment.</p>
+                    <p>Kambili and her brother Jaja are exceptionally bright but rendered almost mute by fear. Silence is not just expected; it is enforced. Their voices are stifled, their opinions unasked for, their very existence seemingly dependent on adhering to Papa's rigid rules of holiness.</p>
+
+                    <h3>The Breath of Freedom at Aunty Ifeoma's</h3>
+                    <p>A turning point comes when Kambili and Jaja visit their Aunty Ifeoma, Papa's sister, in Nsukka. Aunty Ifeoma's home is vibrant, chaotic, filled with laughter, debate, and intellectual freedom. Here, Kambili experiences a different way of being. She is asked questions, her quiet opinions are valued, and she witnesses women like Aunty Ifeoma and her cousin Amaka living with boldness and self-expression.</p>
+                    <p>This exposure acts like sunlight, warming her frozen voice. Though initially overwhelmed and still hesitant, Kambili begins to find her footing, to observe, to think, and eventually, to speak and write, discovering a self she didn't know existed beneath the layers of fear and silence.</p>
+                     <blockquote>
+                         <p>"In my home, silence was mistaken for obedience, and obedience was worship. My voice was something dangerous—so I hid it behind nods and bowed heads."</p>
+                         <span class="source">- Kambili (from the script)</span>
+                     </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <section id="shared-journey" class="section shared-journey">
+            <div class="container">
+                <h2>Threads That Bind: The Cost, the Catalyst, the First Step</h2>
+                <p>Nora and Kambili, separated by culture and time, share a profound understanding of the cost of silence. For both, it was a chipping away at their souls, a denial of their fundamental humanity. The loneliness was not just physical isolation, but the deeper solitude of never being truly seen or known.</p>
+
+                <div class="quote-block">
+                     <p class="quote">It’s the loneliness, isn’t it? Not the absence of people—but the absence of being seen.</p>
+                     <p class="source">Nora (from the script)</p>
+                </div>
+                 <div class="quote-block">
+                     <p class="quote">Yes. You can be surrounded and still completely invisible.</p>
+                     <p class="source">Kambili (from the script)</p>
+                 </div>
+
+                <h3>The Spark: The Power of Being Seen</h3>
+                <p>A crucial turning point for both was encountering someone outside their oppressive environment who simply <em>saw</em> them. For Nora, it was Kristine Linde, a friend who had faced hardship and stood resiliently. For Kambili, it was Aunty Ifeoma, whose vibrant, unapologetic existence offered a vision of a different kind of life. These connections, these moments of being seen without judgment or expectation, were the catalysts that cracked open their worlds.</p>
+
+                <h3>The Whisper Becomes a Risk</h3>
+                <p>The journey out of silence began internally – with whispers, hidden thoughts, secret writings. For Nora, it led to the risk of the forged signature. For Kambili, it was the brave act of asking questions, of laughing, of writing truth. The first steps towards voice are often terrifying, met with fear and guilt, feeling like betrayal or sin.</p>
+
+            </div>
+        </section>
+
+        <section id="freedom" class="section awakening-freedom">
+             <div class="container">
+                 <h2>Awakening: Stepping into Possibility</h2>
+                 <div class="freedom-points-grid">
+                     <div class="freedom-point">
+                         <h3>Facing the Fear</h3>
+                         <p>The decision to embrace freedom, whether physical (Nora leaving) or internal (Kambili finding her voice), is fraught with terror. The known cage, however painful, feels safer than the unknown possibility. Yet, the fear of losing their true selves ultimately became stronger than the fear of being alone or challenging the status quo.</p>
+                     </div>
+                      <div class="freedom-point">
+                         <h3>Defining Self Worth</h3>
+                         <p>Both women move towards defining their worth not by others' opinions, but by their own truth. It's a difficult, ongoing process, learning to accept their voice not as a threat, but as a gift. They begin to measure their lives by their own internal compass, not external validation.</p>
+                     </div>
+                      <div class="freedom-point">
+                         <h3>The Taste of Possibility</h3>
+                         <p>Stepping into freedom, for Nora quite literally as she leaves her home, and for Kambili metaphorically as her voice strengthens, is terrifying but also exhilarating. It opens up a world of possibility, a life they can design for themselves, choosing their own paths.</p>
+                     </div>
+                 </div>
+                  <blockquote>"Freedom begins as a whisper. Then a thought. Then a risk."</blockquote>
+                   </div>
+        </section>
+
+         <section id="legacy" class="section legacy">
+             <div class="container">
+                <h2>Lighting the Path: A Legacy of Voice and Support</h2>
+                 <p>Nora and Kambili's stories, separated by decades and cultures, resonate deeply because they highlight a universal struggle. They demonstrate that the act of finding one's voice, however quiet it begins, is a powerful revolution. They envision a world where women are not praised for silence, where daughters are not taught fear, and where freedom is not seen as selfish.</p>
+                 <p>Their journeys underscore the critical importance of external support – a kind word, a moment of being seen, a space where one is allowed to simply <em>be</em>. These are not luxuries but lifelines that can undo years of oppression.</p>
+                 <blockquote>
+                     <p>"Together… we prove that freedom is possible."</p>
+                     <span class="source">- Kambili (from the script)</span>
+                 </blockquote>
+                  <p class="closing-thought">Nora and Kambili are two women, from two cultures, held in two different cages. But both found the key, and in sharing their stories, they light the path for others still searching for their own voices.</p>
+             </div>
+        </section>
+
+        <section id="ib-paper2" class="section ib-paper2-section">
+             <div class="container">
+                 <h2>Exploring the Theme for IB Paper 2: Comparative Responses</h2>
+                 <p>The shared experiences of Nora Helmer and Kambili Achike offer rich ground for comparative analysis in an IB Paper 2 response. Below are two sample essays exploring how literary works present the struggle against oppressive silence and the journey towards finding one's voice.</p>
+
+                 <div class="sample-essay">
+                     <h3>Sample Comparative Essay 1: The Roots of Silence and Seeds of Rebellion</h3>
+                     <p>The theme of silence as a symptom and tool of oppression is central to both Henrik Ibsen's *A Doll's House* and Chimamanda Ngozi Adichie's *Purple Hibiscus*. While Nora Helmer's stifled voice arises from a 19th-century bourgeois patriarchy that casts women as decorative dependents, Kambili Achike's muteness is cultivated by the suffocating tyranny of her father, Papa Eugene, within a post-colonial Nigerian context intertwined with religious extremism. Nora learns to perform silence, acting as a compliant "skylark" for Torvald, a survival mechanism that masks her burgeoning identity and financial agency. Ibsen uses dramatic irony to reveal the disparity between Nora's outward cheerfulness and her internal anxiety, showing silence as a performative prison. Conversely, Kambili's silence is a direct consequence of terror instilled by her father, Papa Eugene. Her quietness stems from an environment where even minor infractions lead to brutal punishment, making speaking a genuine physical and psychological risk. Adichie employs Kambili's narration to reveal the torrent of unspoken thoughts behind her bowed head, highlighting a silence imposed from without, rather than carefully curated from within like Nora's.</p>
+                     <p>The catalysts for breaking this silence also present compelling points of comparison. For Nora, the crisis precipitated by Krogstad and Torvald's subsequent, self-serving reaction triggers her awakening, a catalyst rooted in a moment of dramatic confrontation revealing the superficiality of her freedom and identity. The re-emergence of her friend, Kristine Linde, who represents independence forged through hardship, also provides a contrasting model. Ibsen's tightly structured drama builds towards Nora's explosive articulation of her 'duty to herself'. Kambili's awakening, conversely, is a more gradual process nurtured by the benevolent environment of her Aunty Ifeoma. Exposure to a household where voices are raised in laughter and debate, where intellectual freedom is valued, provides Kambili with a safe space to tentatively find her voice. Adichie contrasts this vibrant atmosphere with Kambili's stifling home, showing how external support and alternative models of womanhood are crucial catalysts for inner change, a gentler unfolding compared to Nora's abrupt realization.</p>
+                 </div>
+
+                 <div class="sample-essay">
+                      <h3>Sample Comparative Essay 2: The Forms of Liberation and Authorial Critique</h3>
+                     <p>The journey towards breaking silence culminates in distinct forms of liberation for Nora and Kambili, reflecting the authors' specific socio-historical contexts and thematic emphases. Nora's ultimate act of breaking free is radical and overt: she abandons her role as wife and mother by leaving her home, famously symbolized by the slamming of the door. Ibsen, writing in the late 19th century, presents this as a revolutionary, albeit controversial, assertion of individual identity against suffocating societal expectations. Nora's breaking of silence is a dramatic verbal declaration of independence and a rejection of her 'doll'-like existence, demanding the right to educate herself and become a fully formed human being. Her liberation is a complete, physical severance from her oppressive environment, a decisive final act within the play's structure.</p>
+                     <p>Kambili's liberation, while equally profound, is portrayed by Adichie as more internal and nuanced. Her process of finding her voice involves tentative steps: writing poetry she doesn't share, managing to laugh loudly, and eventually speaking her thoughts and feelings, often in the relative safety of Aunty Ifeoma's home or through the privacy of her narration. While she later performs an act of quiet rebellion against Papa's religious control by giving Jaja the poisoned communion, her 'freedom' is less about physical escape from the compound and more about reclaiming her mental and emotional space and finding the courage to express her authentic self within her complex circumstances. Adichie's focus is on the psychological journey and the quiet strength found in using one's voice, even if not in a dramatic public spectacle, allowing for a more open-ended exploration of her future trajectory. Both Ibsen and Adichie, however, use these characters to critique the patriarchal and authoritarian structures that demand female silence and conformity, arguing powerfully through Nora and Kambili's transformations that true selfhood necessitates the difficult but vital act of breaking oppressive silence and claiming one's own voice, regardless of the form that act ultimately takes.</p>
+                 </div>
+
+             </div>
+        </section>
+
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2023 Breaking the Silence Project. Inspired by Henrik Ibsen's <em>A Doll's House</em> and Chimamanda Ngozi Adichie's <em>Purple Hibiscus</em>.</p>
+             <p>This site is a tribute to the enduring power of finding one's voice.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Define contribution lines for each person
+        const contributions = {
+            Neil: [
+                "Neil was instrumental in outlining the essay structure.",
+                "Neil helped gather key textual evidence for the comparison.",
+                "Neil contributed to refining the introduction and conclusion."
+            ],
+            Yuval: [
+                "Yuval provided insightful analysis on character motivations.",
+                "Yuval helped connect themes across both novels effectively.",
+                "Yuval focused on developing strong topic sentences."
+            ],
+             Veer: [
+                "Veer played a key role in comparing literary techniques.",
+                "Veer helped ensure smooth transitions between paragraphs.",
+                "Veer contributed ideas for analyzing authorial intent."
+            ],
+            Rithwik: [
+                "Rithwik assisted with structuring the arguments logically.",
+                "Rithwik helped refine the comparative points.",
+                "Rithwik contributed to drafting body paragraphs."
+            ],
+             Bhavika: [
+                "Bhavika focused on clear language and expression.",
+                "Bhavika helped proofread for grammar and style.",
+                "Bhavika ensured quotes were integrated effectively."
+            ],
+            Karina: [
+                "Karina provided ideas for comparative analysis points.",
+                "Karina helped synthesize information from both texts.",
+                "Karina contributed to the overall clarity of the writing."
+            ],
+            Shreeyansh: [
+                "Shreeyansh assisted with research on critical interpretations.",
+                "Shreeyansh helped contextualize the historical/cultural backgrounds.",
+                "Shreeyansh contributed analytical insights."
+            ],
+            Yashab: [
+                "Yashab helped refine sentence structure for better flow.",
+                "Yashab contributed to ensuring vocabulary precision.",
+                "Yashab assisted with reviewing drafts for coherence."
+            ],
+            Rutparn: [
+                "Rutparn focused on developing strong thesis statements.",
+                "Rutparn helped ensure arguments directly addressed the prompt.",
+                "Rutparn contributed to the overall argumentative strength."
+            ],
+            Varun: [
+                "Varun assisted with integrating analysis and evidence.",
+                "Varun helped develop topic sentences for comparison points.",
+                "Varun contributed ideas for thematic links."
+            ],
+            Trisha: [
+                "Trisha helped refine the comparative language.",
+                "Trisha focused on ensuring balanced analysis of both texts.",
+                "Trisha contributed to the structural organization."
+            ],
+            Sharayu: [
+                 "Sharayu contributed valuable insights into character development.",
+                 "Sharayu helped refine the analysis of symbolic elements.",
+                 "Sharayu provided support in structuring the comparative arguments."
+            ],
+            Henil_English: [ // Henil (English Focus)
+                "Henil assisted with the interpretation of key passages for the analysis.",
+                "Henil helped identify recurring motifs and symbols in the texts.",
+                "Henil contributed to drafting sections of the English analysis."
+            ]
+            /* Removed Henil_CSS entry */
+        };
+
+        // Get all the name boxes and the text display area
+        const nameBoxes = document.querySelectorAll('.name-box');
+        const contributionText = document.getElementById('contribution-text');
+
+        // Add a click event listener to each name box
+        nameBoxes.forEach(box => {
+            box.addEventListener('click', function() {
+                const nameDataAttr = this.getAttribute('data-name'); // Get the unique data attribute name
+                const lines = contributions[nameDataAttr]; // Get the lines using the unique name
+
+                // Determine the display name. If data-name is like "Henil_English", we want "Henil"
+                let displayName = this.textContent;
+                // If the data-name has an underscore and matches a key pattern, use the part before underscore
+                if (nameDataAttr.includes('_') && contributions[nameDataAttr]) {
+                     // Check if the line itself clarifies which Henil it is
+                     if (lines[0].startsWith('Henil (English)')) {
+                          displayName = 'Henil (English)';
+                     } else {
+                           // Fallback or handle other patterns if needed
+                           displayName = this.textContent; // Default to box text
+                     }
+                } else if (contributions[nameDataAttr]) {
+                    // If data-name is a direct key like "Neil", use the box text
+                     displayName = this.textContent;
+                } else {
+                    // If nameDataAttr is not found in contributions (shouldn't happen with correct setup)
+                    displayName = this.textContent;
+                }
+
+
+                if (lines && lines.length > 0) {
+                    // Shuffle lines and pick the first 2 or 3
+                    const shuffled = lines.sort(() => 0.5 - Math.random());
+                    const selectedLines = shuffled.slice(0, Math.min(shuffled.length, 3)); // Pick max 3 lines
+
+                     // Ensure display name is prepended correctly
+                    let textToShow = '<strong>' + displayName + ':</strong> ';
+                    textToShow += selectedLines.join('<br>');
+
+
+                    contributionText.innerHTML = textToShow;
+
+                    // Make the text area visible if it wasn't
+                    contributionText.classList.add('visible');
+                } else {
+                    // Fallback if no lines are defined for a name (using the display name)
+                    const displayName = this.textContent;
+                    contributionText.innerHTML = '<strong>' + displayName + ':</strong> Contribution details coming soon!';
+                     contributionText.classList.add('visible');
+                }
+            });
+        });
+
+         // Optional: Hide the text area when clicking outside it or another box
+         document.addEventListener('click', function(event) {
+             const isClickInsideBox = event.target.closest('.name-boxes');
+             const isClickInsideText = event.target.closest('#contribution-text');
+
+             // Check if the click was outside both the boxes container and the text area
+             if (!isClickInsideBox && !isClickInsideText && contributionText.classList.contains('visible')) {
+                  // Hide the text area
+                 contributionText.classList.remove('visible');
+                  // Optionally reset the text after hiding
+                  // contributionText.innerHTML = 'Click on a name above to see their contribution highlights!';
+             }
+             // Note: Clicking one name box then another will automatically update the text area due to the first listener
+         });
+
+
+    </script>
+
+</body>
+</html>
